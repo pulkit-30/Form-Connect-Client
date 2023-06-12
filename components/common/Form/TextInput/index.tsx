@@ -12,6 +12,7 @@ const TextInput = ({
   className,
   readOnly,
   disabled,
+  required = false,
   ...rest
 }: TextInputProps) => {
   const isInputDisabled = readOnly || disabled;
@@ -27,11 +28,11 @@ const TextInput = ({
     : "hover:border-hm-black focus:border-hm-black";
 
   return (
-    <FieldWrapper label={label} errorText={errorText}>
+    <FieldWrapper required={required} label={label} errorText={errorText}>
       <input
         readOnly={readOnly}
         disabled={disabled}
-        className={`w-full h-11 px-5 py-3 text-black rounded-lg font-medium focus:outline-0 border ${defaultBorderClass} 
+        className={`w-full h-9 bg-transparent text-white border-b placeholder:text-slate-600 py-4 font-medium focus:outline-0 focus:border-indigo-500 ${defaultBorderClass} 
         ${!isInputDisabled ? hoverBorderClass : ""} ${
           disabled ? "bg-hm-disabled" : ""
         } ${className}`}

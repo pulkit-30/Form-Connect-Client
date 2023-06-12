@@ -8,6 +8,7 @@ type Props = {
   disabled?: boolean;
   onClick?: () => void;
   noPadding?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 
 const getSizeClass = (size: string) => {
@@ -31,11 +32,13 @@ const Button = ({
   className,
   icon,
   disabled = false,
+  type = "button",
   onClick,
 }: Props) => {
   const sizeClass = getSizeClass(size);
   return (
     <button
+      type={type}
       disabled={disabled}
       onClick={onClick}
       className={`${className} ${sizeClass} flex items-center justify-center gap-x-2 cursor-pointer border-2 rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-slate-800 hover:scale-[1.02] transition duration-150`}

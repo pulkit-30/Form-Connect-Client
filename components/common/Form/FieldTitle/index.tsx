@@ -5,9 +5,7 @@ type FieldTitleProps = {
 };
 
 const FieldTitle = ({ children }: FieldTitleProps) => (
-  <span className="font-medium text-label flex mb-1 ml-1 capitalize">
-    {children}
-  </span>
+  <span className="text-sm flex mb-1 capitalize gap-x-1">{children}</span>
 );
 
 export default FieldTitle;

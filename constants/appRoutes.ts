@@ -5,10 +5,14 @@ export const PublicRoutes = {
 };
 export const ProtectedRoutes = {
   DASHBOARD: "/user/dashboard",
+  CREATEFORM: "/user/organization/form/create",
+  EDITFORM: (formId: string) => `/user/organization/form/${formId}/edit/`,
   //   PROFILE: "/profile",
   //   SETTINGS: "/settings",
 };
-export const UniversalRoutes = {};
+export const UniversalRoutes = {
+  RESPONSEPAGE: "/form/[formToken]/response",
+};
 const AppRoutes = {
   PublicRoutes,
   ProtectedRoutes,

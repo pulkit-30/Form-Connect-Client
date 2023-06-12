@@ -11,7 +11,7 @@ const Navbar = () => {
   const { logout } = useAuthContext();
 
   return (
-    <nav className="w-full items-center justify-between font-mono text-sm lg:flex">
+    <nav className="w-11/12 m-auto items-center justify-between font-mono text-sm lg:flex gap-x-2">
       <Link
         href={isPublicRoute ? PublicRoutes.HOME : ProtectedRoutes.DASHBOARD}
         className="font-semibold text-lg"
@@ -30,7 +30,7 @@ const Navbar = () => {
             }}
             size="medium"
             className={
-              isPublicRoute ? "hover:bg-indigo-500" : "hover:bg-red-600"
+              isPublicRoute ? "hover:text-indigo-500" : "hover:text-red-600"
             }
             icon={<AiOutlineLogin />}
           >

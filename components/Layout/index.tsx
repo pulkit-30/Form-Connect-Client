@@ -8,14 +8,14 @@ type Props = {
   children: ReactNode;
 };
 const LayoutProvider = ({ children }: Props) => {
-  const { isPublicRoute } = usePublicRoute();
+  const { isPublicRoute, isUniversalroute } = usePublicRoute();
   const {
     userStatus: { isLoggedIn },
   } = useAuthContext();
   useEffect(() => {
     if (isLoggedIn && isPublicRoute) {
       goToPage("/user/dashboard");
-    } else if (!isLoggedIn && !isPublicRoute) {
+    } else if (!isLoggedIn && !isPublicRoute && !isUniversalroute) {
       goToPage("/auth/login");
     }
   }, [isPublicRoute, isLoggedIn]);

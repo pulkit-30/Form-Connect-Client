@@ -1,10 +1,19 @@
 import Button from "@/components/common/Button";
 import Form from "@/components/common/Form";
 import TextInput from "@/components/common/Form/TextInput";
+import { ProtectedRoutes } from "@/constants/appRoutes";
+import useAuthContext from "@/contexts/AuthProvider/useAuthContext";
+import useRequest from "@/hooks/useRequest";
+import { Roles } from "@/types";
+import goToPage from "@/utils/goToPage";
 import Link from "next/link";
+import { useReducer } from "react";
+import { AiOutlineLogin } from "react-icons/ai";
 import * as yup from "yup";
 
 const LoginPage = () => {
+  const { setAuthData } = useAuthContext();
+  const request = useRequest();
   const initalValues = {
     fullName: "",
     email: "",
@@ -25,12 +34,28 @@ const LoginPage = () => {
     orgName: yup.string().required().label("Organization name"),
     orgCategory: yup.string().required().label("Organization category"),
   });
+
+  const onSubmit = async (values: Record<any, any>) => {
+    const response = await request("/auth/register", {
+      method: "POST",
+      body: {
+        ...values,
+        role: Roles.OWNER,
+      },
+    });
+    if (response.success) {
+      setAuthData({ token: response.data.token });
+      goToPage(ProtectedRoutes.DASHBOARD);
+    }
+  };
+
   return (
     <Form
       title="register"
       initialValues={initalValues}
       validationSchema={validationSchema}
-      onSubmit={() => {}}
+      onSubmit={onSubmit}
+      className="mt-8 mb-4"
     >
       {(values, errors, isSubmitting, isValid, handleBlur, handleChange) => (
         <div className="w-full gap-y-4 flex flex-col">
@@ -42,6 +67,8 @@ const LoginPage = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.fullName}
+            placeholder="ex: John Doe"
+            required
           />
           <TextInput
             label="email"
@@ -50,6 +77,8 @@ const LoginPage = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.email}
+            placeholder="ex: username@gmail.com "
+            required
           />
           <TextInput
             type="text"
@@ -59,6 +88,8 @@ const LoginPage = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.orgName}
+            placeholder="ex: John pvt.ltd"
+            required
           />
           <TextInput
             type="text"
@@ -68,6 +99,8 @@ const LoginPage = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.orgCategory}
+            placeholder="ex: IT, Education, etc"
+            required
           />
           <TextInput
             type="password"
@@ -77,6 +110,8 @@ const LoginPage = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.password}
+            placeholder="ex: ********"
+            required
           />
           <TextInput
             type="password"
@@ -86,9 +121,16 @@ const LoginPage = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.confirmPassword}
+            placeholder="ex: ********"
+            required
           />
           <div className="flex justify-center items-center">
-            <Button size="medium" disabled={isSubmitting || !isValid}>
+            <Button
+              type="submit"
+              size="medium"
+              disabled={isSubmitting || !isValid}
+              icon={<AiOutlineLogin />}
+            >
               Register
             </Button>
           </div>

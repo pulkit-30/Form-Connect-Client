@@ -25,3 +25,10 @@ body {
     )
     rgb(var(--background-start-rgb));
   }
+
+/* hide scrollbar using css */
+::-webkit-scrollbar {
+  display: none;
+  color: rgba(0, 0, 0, 0.53);
+}
+

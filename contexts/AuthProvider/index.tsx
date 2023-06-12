@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 import { User } from "@/types";
 import goToPage from "@/utils/goToPage";
 import AuthContext, { AuthData, AuthContextType, LoginData } from "./context";
-import { PublicRoutes } from "@/constants/appRoutes";
+import { ProtectedRoutes, PublicRoutes } from "@/constants/appRoutes";
 import useAlertMessages from "../AlertMessagesProvider/useAlertMessages";
 
 type Props = {
@@ -72,6 +72,7 @@ const AuthProvider = ({ children }: Props) => {
         const { token: authToken } = response.data;
         setAuthData({ token: authToken });
         showSuccessAlert("You have been logged in successfully");
+        goToPage(ProtectedRoutes.DASHBOARD);
       } else {
         showErrorAlert(response.error.message);
       }

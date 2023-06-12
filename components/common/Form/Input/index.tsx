@@ -13,7 +13,7 @@ const Input = ({ className, hasError, disabled, ...props }: InputProps) => {
     : "hover:border-hm-black focus:border-hm-black";
   return (
     <input
-      className={`w-full h-11 px-5 py-3 text-input-color rounded-lg font-medium focus:outline-0 border ${defaultBorderClass} 
+      className={`w-full h-11 py-3 text-white bg-transparent border-b focus:border-indigo-500 font-medium focus:outline-0 ${defaultBorderClass} 
         ${!disabled ? hoverBorderClass : ""} ${
         disabled ? "bg-hm-disabled" : ""
       } ${className}`}

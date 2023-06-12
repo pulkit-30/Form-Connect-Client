@@ -1,6 +1,6 @@
 import Button from "@/components/common/Button";
 import Form from "@/components/common/Form";
-import { FormikHelpers } from "formik";
+import { AiOutlineLogin } from "react-icons/ai";
 import TextInput from "@/components/common/Form/TextInput";
 import useRequest from "@/hooks/useRequest";
 import Link from "next/link";
@@ -30,28 +30,38 @@ const LoginPage = () => {
       initialValues={initalValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      className="mt-4 mb-4"
     >
       {(values, errors, isSubmitting, isValid, handleBlur, handleChange) => (
         <div className="w-full gap-y-4 flex flex-col">
           <TextInput
             label="email"
             name="email"
+            placeholder="ex: username@example.com"
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.email}
+            required
           />
           <TextInput
             type="password"
             label="password"
+            placeholder="ex: ************"
             name="password"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
             errorText={errors.password}
+            required
           />
           <div className="flex justify-center items-center">
-            <Button size="medium" disabled={isSubmitting || !isValid}>
+            <Button
+              type="submit"
+              size="medium"
+              disabled={isSubmitting || !isValid}
+              icon={<AiOutlineLogin />}
+            >
               LogIn
             </Button>
           </div>
