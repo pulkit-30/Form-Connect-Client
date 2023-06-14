@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import usePersistentState from "@/hooks/usePersistentState";
 import UserContext, { UserContextType } from "./context";
 

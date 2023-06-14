@@ -4,6 +4,7 @@ import useRequest from "../useRequest";
 import useUserContext from "@/contexts/UserProvider/useUserContext";
 import useAuthContext from "@/contexts/AuthProvider/useAuthContext";
 import useAlertMessages from "@/contexts/AlertMessagesProvider/useAlertMessages";
+import goToPage from "@/utils/goToPage";
 
 const useFormIntegrations = () => {
   const request = useRequest();
@@ -46,6 +47,9 @@ const useFormIntegrations = () => {
 
       if (response.status === 200) {
         showSuccessAlert("Integration Sucess!");
+        if (response.data?.redirect) {
+          goToPage(response.data.url);
+        }
         return {
           success: true,
           message: "Integration Sucessfully started",

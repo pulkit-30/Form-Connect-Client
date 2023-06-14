@@ -11,11 +11,14 @@ const UserOrgs = () => {
   } = useUserOrgs();
   const { organization, setOrganization } = useUserContext();
 
+  const orgIds =
+    userOrgs?.map(({ organization }: UserOrg) => organization.id) || [];
+
   useEffect(() => {
-    if (userOrgs && userOrgs.length > 0 && !organization) {
-      setOrganization(userOrgs[0]?.organization.id || "");
+    if (orgIds && orgIds.length > 0 && !orgIds?.includes(organization)) {
+      setOrganization(orgIds[0] || "");
     }
-  }, [organization, userOrgs]);
+  }, []);
 
   if (isLoading) {
     return <DivSkeleton className="h-[62px] w-80" />;
