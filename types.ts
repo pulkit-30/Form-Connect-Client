@@ -92,6 +92,7 @@ export type Publication = {
 export type Response = {
   id: string;
   form: string;
+  response: Record<string, any>;
 };
 export type Form = {
   id?: string;

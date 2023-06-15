@@ -24,7 +24,7 @@ const CopyToClipBoardButton = ({
       onCopy={() => showSuccessAlert(onCopyMessage || "copied to clipboard")}
     >
       <Button
-        size="extra-small"
+        size="small"
         onClick={() => {
           setClick(true);
           setTimeout(() => {

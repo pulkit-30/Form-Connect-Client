@@ -2,7 +2,7 @@ import Button from "@/components/common/Button";
 import GlassBg from "@/components/common/GlassBg";
 import { Form, PublicationStatus } from "@/types";
 import { LuEdit2 } from "react-icons/lu";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineCloudDownload, AiOutlineDelete } from "react-icons/ai";
 import useFormActions from "@/hooks/useFormActions";
 import useOrgForm from "@/hooks/useOrgForms";
 import goToPage from "@/utils/goToPage";
@@ -11,6 +11,7 @@ import CopyToClipBoardButton from "@/components/common/CopyToClipBoardButton";
 import getFormPublicUrl from "@/constants/getFormPublicUrl";
 import Chip from "@/components/common/Chip";
 import PluginsList from "./PluginsList";
+import download from "@/utils/downloadFile";
 
 type Props = {
   form: Form;
@@ -33,6 +34,17 @@ const Banner = ({ form }: Props) => {
         return "yellow";
     }
   };
+
+  const downloadResponse = () => {
+    const headers = Object.keys(form.responses?.[0].response || {}).join(",");
+    const data = form.responses
+      ?.map(({ response }) => {
+        return Object.values(response).join(",");
+      })
+      .join("\n");
+    download(`${form.name}-responses.csv`, `${headers}\n${data}`);
+  };
+
   return (
     <div key={form.id}>
       <GlassBg className="mt-2 mb-4">
@@ -53,11 +65,21 @@ const Banner = ({ form }: Props) => {
                 </Button>
               )}
               {form.publication?.status === PublicationStatus.PUBLISHED && (
-                <CopyToClipBoardButton
-                  text={getFormPublicUrl(form.publication.token)}
-                  title="Copy URL"
-                  onCopyMessage="Form Url copied to clipboard!"
-                />
+                <>
+                  <Button
+                    onClick={downloadResponse}
+                    icon={<AiOutlineCloudDownload />}
+                    size="small"
+                    className="text-green-200"
+                  >
+                    Responses: {form.responses?.length || 0}
+                  </Button>
+                  <CopyToClipBoardButton
+                    text={getFormPublicUrl(form.publication.token)}
+                    title="Copy URL"
+                    onCopyMessage="Form Url copied to clipboard!"
+                  />
+                </>
               )}
 
               <Button
@@ -80,11 +102,8 @@ const Banner = ({ form }: Props) => {
           )}
         </div>
         <PluginsList form={form} />
-        <div className="text-sm text-slate-600 flex justify-between items-center gap-x-4">
+        <div className="text-sm text-slate-400 flex justify-between items-center gap-x-4">
           <p className="w-1/2 grow truncate">{form.description}</p>
-          <div className="text-green-200">
-            Responses: {form.responses?.length || 0}
-          </div>
           <div className="text-green-200 flex gap-x-2">
             Status:{" "}
             <Chip color={getChipColor()} className="uppercase">

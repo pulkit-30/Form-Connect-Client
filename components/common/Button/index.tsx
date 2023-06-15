@@ -14,7 +14,7 @@ type Props = {
 const getSizeClass = (size: string) => {
   switch (size) {
     case "small":
-      return "text-xs px-2 py-1";
+      return "text-xs px-3 py-1";
     case "extra-small":
       return "text-xs px-1 py-1";
     case "medium":
