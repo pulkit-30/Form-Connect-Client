@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  form-connect-client:
+    build:
+      context: .
+      dockerfile: dockerfile
+      tags:
+        - "form-connect-client:latest"
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules/
+      - ./:/app/
+    env_file:
+      - ./.env

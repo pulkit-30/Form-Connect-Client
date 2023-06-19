@@ -1,0 +1,15 @@
+.env
+.dockerignore
+.eslintrc.json
+
+# ignore node_modules
+node_modules
+
+# ignore git files
+.git/
+.gitignore
+
+# ignore next.js files
+.next/
+next-env.d.ts
+
