@@ -7,7 +7,7 @@ import { IoAdd, IoCheckmark, IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
 import useFormPlugins from "@/hooks/useFormPlugins";
 import { Plugin } from "@/types";
-import ContainerSkeleton from "@/components/common/Skeletons/ConatinerSkeleton";
+import DivSkeleton from "@/components/common/Skeletons/DivSkeleton";
 
 const Settings = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -23,11 +23,11 @@ const Settings = () => {
   } = useFormPlugins({ formId: query.formId as string });
 
   if (isLoading || isfetching) {
-    return <ContainerSkeleton />;
+    return <DivSkeleton />;
   }
   const handelIntegration = async (authUrl: string) => {
     setLoading(true);
-    const response = await startIntegration({
+    await startIntegration({
       authUrl,
       formId: query.formId as string,
     });

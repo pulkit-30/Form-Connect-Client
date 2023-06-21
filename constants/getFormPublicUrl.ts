@@ -1,4 +1,4 @@
 const getFormPublicUrl = (token: string) => {
-  return `http://localhost:3000/form/${token}/response`;
+  return `https://form-connect-client.vercel.app/form/${token}/response`;
 };
 export default getFormPublicUrl;
